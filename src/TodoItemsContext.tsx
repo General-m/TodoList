@@ -5,52 +5,8 @@ import {
   useEffect,
   useReducer,
 } from "react";
+import { todoItemsReducer } from "./reducers/todoItemsReducer";
 import { TodoItemsAction, TodoItemsActionTypes, TodoItemsState } from "./types";
-import { generateIdItem } from "./utils/generateIdItem";
-
-// export interface TodoItem {
-//   id: string;
-//   title: string;
-//   details?: string;
-//   done: boolean;
-// }
-
-// interface TodoItemsState {
-//   todoItems: TodoItem[];
-// }
-
-// export type TodoItemData = Omit<TodoItem, "id" | "done">;
-
-// export enum TodoItemsActionTypes {
-//   LOAD_STATE = "LOAD_STATE",
-//   ADD = "ADD",
-//   DELETE = "DELETE",
-//   TOGGLE_DONE = "TOGGLE_DONE",
-// }
-
-// interface TodoItemsLoadAction {
-//   type: TodoItemsActionTypes.LOAD_STATE;
-//   data: TodoItemsState;
-// }
-// interface TodoItemsAddAction {
-//   type: TodoItemsActionTypes.ADD;
-//   data: { todoItem: TodoItemData };
-// }
-// interface TodoItemsDeleteAction {
-//   type: TodoItemsActionTypes.DELETE;
-//   data: { id: string };
-// }
-
-// interface TodoItemsToggleDoneAction {
-//   type: TodoItemsActionTypes.TOGGLE_DONE;
-//   data: { id: string };
-// }
-
-// export type TodoItemsAction =
-//   | TodoItemsLoadAction
-//   | TodoItemsAddAction
-//   | TodoItemsDeleteAction
-//   | TodoItemsToggleDoneAction;
 
 const TodoItemsContext = createContext<
   (TodoItemsState & { dispatch: (action: TodoItemsAction) => void }) | null
@@ -101,42 +57,3 @@ export const useTodoItems = () => {
 
   return todoItemsContext;
 };
-
-function todoItemsReducer(state: TodoItemsState, action: TodoItemsAction) {
-  switch (action.type) {
-    case "LOAD_STATE": {
-      return action.data;
-    }
-    case "ADD":
-      return {
-        ...state,
-        todoItems: [
-          { id: generateIdItem(), done: false, ...action.data.todoItem },
-          ...state.todoItems,
-        ],
-      };
-
-    case "DELETE":
-      return {
-        ...state,
-        todoItems: state.todoItems.filter(({ id }) => id !== action.data.id),
-      };
-
-    case "TOGGLE_DONE":
-      const itemIndex = state.todoItems.findIndex(
-        ({ id }) => id === action.data.id
-      );
-      const item = state.todoItems[itemIndex];
-
-      return {
-        ...state,
-        todoItems: [
-          ...state.todoItems.slice(0, itemIndex),
-          { ...item, done: !item.done },
-          ...state.todoItems.slice(itemIndex + 1),
-        ],
-      };
-    default:
-      throw new Error();
-  }
-}
