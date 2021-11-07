@@ -5,6 +5,7 @@ import {
   useEffect,
   useReducer,
 } from "react";
+import { generateIdItem } from "./utils/generateIdItem";
 
 export interface TodoItem {
   id: string;
@@ -109,7 +110,7 @@ function todoItemsReducer(state: TodoItemsState, action: TodoItemsAction) {
       return {
         ...state,
         todoItems: [
-          { id: generateId(), done: false, ...action.data.todoItem },
+          { id: generateIdItem(), done: false, ...action.data.todoItem },
           ...state.todoItems,
         ],
       };
@@ -137,10 +138,4 @@ function todoItemsReducer(state: TodoItemsState, action: TodoItemsAction) {
     default:
       throw new Error();
   }
-}
-
-function generateId() {
-  return `${Date.now().toString(36)}-${Math.floor(
-    Math.random() * 1e16
-  ).toString(36)}`;
 }
