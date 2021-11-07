@@ -5,8 +5,12 @@ import {
   useEffect,
   useReducer,
 } from "react";
-import { todoItemsReducer } from "./reducers/todoItemsReducer";
-import { TodoItemsAction, TodoItemsActionTypes, TodoItemsState } from "./types";
+import { todoItemsReducer } from "../reducers/todoItemsReducer";
+import {
+  TodoItemsAction,
+  TodoItemsActionTypes,
+  TodoItemsState,
+} from "../types";
 
 const TodoItemsContext = createContext<
   (TodoItemsState & { dispatch: (action: TodoItemsAction) => void }) | null

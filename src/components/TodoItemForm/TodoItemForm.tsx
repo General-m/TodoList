@@ -1,9 +1,9 @@
-import { useTodoItems } from "./TodoItemsContext";
+import { useTodoItems } from "../../context";
 import { useForm, Controller } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
-import { TodoItemData, TodoItemsActionTypes } from "./types";
+import { TodoItemData, TodoItemsActionTypes } from "../../types";
 
 const useInputStyles = makeStyles(() => ({
   root: {
@@ -11,7 +11,7 @@ const useInputStyles = makeStyles(() => ({
   },
 }));
 
-export default function TodoItemForm() {
+export const TodoItemForm: React.FC = () => {
   const classes = useInputStyles();
   const { dispatch } = useTodoItems();
   const { control, handleSubmit, reset, watch } = useForm();
@@ -64,4 +64,4 @@ export default function TodoItemForm() {
       </Button>
     </form>
   );
-}
+};

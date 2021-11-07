@@ -9,41 +9,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
 import classnames from "classnames";
-import { motion } from "framer-motion";
-import { useTodoItems } from "./TodoItemsContext";
-import { TodoItem, TodoItemsActionTypes } from "./types";
-import { sortItems } from "./utils/sortItems";
-
-const spring = {
-  type: "spring",
-  damping: 25,
-  stiffness: 120,
-  duration: 0.25,
-};
-
-const useTodoItemListStyles = makeStyles({
-  root: {
-    listStyle: "none",
-    padding: 0,
-  },
-});
-
-export const TodoItemsList = function () {
-  const { todoItems } = useTodoItems();
-
-  const classes = useTodoItemListStyles();
-  const sortedItems = sortItems(todoItems.slice());
-
-  return (
-    <ul className={classes.root}>
-      {sortedItems.map((item) => (
-        <motion.li key={item.id} transition={spring} layout={true}>
-          <TodoItemCard item={item} />
-        </motion.li>
-      ))}
-    </ul>
-  );
-};
+import { useTodoItems } from "../../context/TodoItemsContext";
+import { TodoItem, TodoItemsActionTypes } from "../../types";
 
 const useTodoItemCardStyles = makeStyles({
   root: {
@@ -56,7 +23,7 @@ const useTodoItemCardStyles = makeStyles({
   },
 });
 
-export const TodoItemCard = function ({ item }: { item: TodoItem }) {
+export const TodoItemCard = ({ item }: { item: TodoItem }) => {
   const classes = useTodoItemCardStyles();
   const { dispatch } = useTodoItems();
 
