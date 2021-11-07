@@ -10,11 +10,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
 import classnames from "classnames";
 import { motion } from "framer-motion";
-import {
-  TodoItem,
-  TodoItemsActionTypes,
-  useTodoItems,
-} from "./TodoItemsContext";
+import { useTodoItems } from "./TodoItemsContext";
+import { TodoItem, TodoItemsActionTypes } from "./types";
 
 const spring = {
   type: "spring",
