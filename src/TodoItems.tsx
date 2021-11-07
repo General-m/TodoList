@@ -12,6 +12,7 @@ import classnames from "classnames";
 import { motion } from "framer-motion";
 import { useTodoItems } from "./TodoItemsContext";
 import { TodoItem, TodoItemsActionTypes } from "./types";
+import { sortItems } from "./utils/sortItems";
 
 const spring = {
   type: "spring",
@@ -31,18 +32,7 @@ export const TodoItemsList = function () {
   const { todoItems } = useTodoItems();
 
   const classes = useTodoItemListStyles();
-
-  const sortedItems = todoItems.slice().sort((a, b) => {
-    if (a.done && !b.done) {
-      return 1;
-    }
-
-    if (!a.done && b.done) {
-      return -1;
-    }
-
-    return 0;
-  });
+  const sortedItems = sortItems(todoItems.slice());
 
   return (
     <ul className={classes.root}>
