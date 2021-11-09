@@ -16,6 +16,7 @@ const useTodoItemCardStyles = makeStyles({
   root: {
     marginTop: 24,
     marginBottom: 24,
+    wordBreak: "break-all",
   },
   doneRoot: {
     textDecoration: "line-through",
