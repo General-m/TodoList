@@ -1,4 +1,3 @@
-import { makeStyles } from "@material-ui/core/styles";
 import { motion } from "framer-motion";
 import {
   DragDropContext,
@@ -9,26 +8,10 @@ import {
 import { useTodoItems } from "../../context/TodoItemsContext";
 import { sortItems } from "../../utils/sortItems";
 import { TodoItemCard } from "../TodoItemCard";
-import { TodoItem, TodoItemsActionTypes } from "../../types";
+import { TodoItemsActionTypes } from "../../types";
 import { spring } from "../../constants/springMotion";
-
-const useTodoItemListStyles = makeStyles({
-  root: {
-    listStyle: "none",
-    padding: 0,
-  },
-});
-
-const reorder = (
-  list: TodoItem[],
-  startIndex: number,
-  endIndex: number
-): TodoItem[] => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return result;
-};
+import { useStyles } from "./TodoItemList.styles";
+import { reorder } from "../../utils/reorderForDragDrop";
 
 const grid = 8;
 
@@ -44,7 +27,7 @@ export const TodoItemsList: React.FC = () => {
   const { dispatch } = useTodoItems();
   const { todoItems } = useTodoItems();
 
-  const classes = useTodoItemListStyles();
+  const classes = useStyles();
   const sortedItems = sortItems(todoItems.slice());
 
   const onDragEnd = (result: DropResult) => {
@@ -56,12 +39,12 @@ export const TodoItemsList: React.FC = () => {
       result.source.index,
       result.destination.index
     );
-
     dispatch({
       type: TodoItemsActionTypes.SORT,
       data: { todoItems: items },
     });
   };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">

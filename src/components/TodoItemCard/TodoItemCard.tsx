@@ -7,25 +7,13 @@ import IconButton from "@material-ui/core/IconButton";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { makeStyles } from "@material-ui/core/styles";
 import classnames from "classnames";
 import { useTodoItems } from "../../context/TodoItemsContext";
 import { TodoItem, TodoItemsActionTypes } from "../../types";
-
-const useTodoItemCardStyles = makeStyles({
-  root: {
-    marginTop: 24,
-    marginBottom: 24,
-    wordBreak: "break-all",
-  },
-  doneRoot: {
-    textDecoration: "line-through",
-    color: "#888888",
-  },
-});
+import { useStyles } from "./TodoItemCard.styles";
 
 export const TodoItemCard = ({ item }: { item: TodoItem }) => {
-  const classes = useTodoItemCardStyles();
+  const classes = useStyles();
   const { dispatch } = useTodoItems();
 
   const handleDelete = useCallback(
